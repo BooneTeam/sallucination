@@ -8,16 +8,30 @@ class Pusher
 
   def initialize
     # Dunno WTF I'm Doing with directories
-    @current_dir = `pwd`.chomp
-    Dir.chdir('sallucination')
-
-    settings = File.read('./settings.json')
-    @cohorts = JSON.parse(settings)['cohorts']
-
+    @current_dir = current_dir
+    cd_into_sallucination_for_file_reading
+    get_settings
     @base_solution_url = 'https://github.com/Devbootcamp-atx-Solutions'
-    Dir.chdir(@current_dir)
+    change_to_repo_dir
     get_inputs
     cd_and_branch
+  end
+
+  def change_to_repo_dir
+    Dir.chdir(@current_dir)
+  end
+
+  def get_settings
+    settings = File.read('./settings.json')
+    @cohorts = JSON.parse(settings)['cohorts']
+  end
+
+  def cd_into_sallucination_for_file_reading
+    Dir.chdir('sallucination')
+  end
+
+  def current_dir
+    `pwd`.chomp
   end
 
   def get_repo
