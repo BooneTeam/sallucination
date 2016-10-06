@@ -2,7 +2,6 @@
 require "highline/import"
 require 'pry'
 require 'json'
-require 'colors'
 
 class Pusher
 
