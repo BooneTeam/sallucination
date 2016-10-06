@@ -21,7 +21,6 @@
 
 
 ##### Push a branch of your choosing to another remote basically.
-                    "m
 
 ## Usage
 ========
