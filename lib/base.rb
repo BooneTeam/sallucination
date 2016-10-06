@@ -8,7 +8,6 @@ class Pusher
 
   def initialize
     @current_dir = current_dir
-    cd_into_sallucination_for_file_reading
     get_settings
     change_to_repo_dir
     get_inputs
@@ -19,14 +18,11 @@ class Pusher
     Dir.chdir(@current_dir)
   end
 
-  def cd_into_sallucination_for_file_reading
-    Dir.chdir('sallucination')
-  end
-
   def get_settings
-    settings = File.read('./settings.json')
-    @cohorts = JSON.parse(settings)['cohorts']
-    @base_solution_url = JSON.parse(settings)['solution_repo']
+    read = File.read('./settings.json')
+    settings = JSON.parse(read)
+    @cohorts = settings['cohorts']
+    @base_solution_url = settings['solution_repo']
   end
 
   def get_inputs
@@ -46,7 +42,7 @@ class Pusher
 
 
   def current_dir
-    `pwd`.chomp
+    ARGV[0]
   end
 
   def do_da_prompt(choices, selection_type)
