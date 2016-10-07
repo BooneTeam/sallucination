@@ -7,7 +7,8 @@ class Pusher
   # Dunno WTF I'm Doing with directories FYI
 
   def initialize
-    @current_dir = current_dir
+    @current_dir  = current_dir
+    @solution_dir = solution_dir
     get_settings
     change_to_repo_dir
     get_inputs
@@ -15,7 +16,7 @@ class Pusher
   end
 
   def change_to_repo_dir
-    Dir.chdir(@current_dir)
+    Dir.chdir(@solution_dir)
   end
 
   def get_settings
@@ -40,9 +41,12 @@ class Pusher
     push_branch
   end
 
+  def solution_dir
+    ARGV[0] || current_dir
+  end
 
   def current_dir
-    ARGV[0]
+    `pwd`.chomp
   end
 
   def do_da_prompt(choices, selection_type)
@@ -102,7 +106,7 @@ class Pusher
   end
 
   def goto_repo_dir
-    Dir.chdir("#{@solution_repo_name}")
+    Dir.chdir(File.expand_path(@solution_dir + '/' + @solution_repo_name))
   end
 
   def list_branches
